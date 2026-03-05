@@ -1,191 +1,213 @@
-# DeepResearchAgent
+# DeepResearchAgent (Multi-Agent Research Assistant)
 
-A multi-agent research assistant that decomposes complex research questions into structured subtasks, orchestrates tool usage, and generates evidence-grounded research reports with traceable intermediate artifacts.
+A multi-agent research assistant designed to decompose complex research questions into executable subtasks, orchestrate tool usage, and produce evidence-grounded structured reports.
 
-The system simulates a research workflow pipeline — planning, evidence collection, summarization, verification, and final reporting — using coordinated LLM agents.
+The system coordinates specialized agents for planning, summarization, verification, and reporting. It supports both sequential and parallel execution modes and incorporates self-reflection mechanisms to improve report quality over time.
 
 ---
 
 # Overview
 
-DeepResearchAgent is a multi-agent system designed to transform an open-ended research question into a structured investigation workflow.
+DeepResearchAgent is a **multi-agent research system** designed to assist with complex research workflows.
 
-The system automatically:
+The system breaks down high-level research questions into smaller executable tasks, performs iterative information gathering and synthesis, and produces structured reports with traceable intermediate artifacts.
 
-- Decomposes complex research questions into executable subtasks
-- Coordinates tool calls for information retrieval and processing
-- Synthesizes evidence from multiple sources
-- Performs self-reflection and quality auditing
-- Produces structured reports with traceable reasoning artifacts
+Key capabilities include:
 
-The goal is to improve the reliability and usability of long-form research synthesis while maintaining transparency across intermediate reasoning steps.
+* **Task decomposition for complex research questions**
+* **Tool-augmented evidence retrieval**
+* **Multi-agent orchestration**
+* **Iterative quality improvement via self-reflection**
 
----
-
-# Architecture
-
-The system is organized as a multi-agent orchestration pipeline consisting of four specialized agents:
-
-
-User Query
-↓
-Planner Agent
-(Task Decomposition)
-↓
-Tool Execution Layer
-(Search / Retrieval / Processing)
-↓
-Summarizer Agent
-(Evidence Synthesis)
-↓
-QA Auditor
-(Self-Reflection & Verification)
-↓
-Reporter Agent
-(Structured Research Report)
-
-
-Each agent focuses on a specific role in the research pipeline, enabling modularity and extensibility.
+The system enables an automated research pipeline that integrates planning, retrieval, synthesis, verification, and reporting.
 
 ---
 
-# Core Components
+# Core Ideas
 
-## Planner Agent
+## Multi-Agent Task Decomposition
 
-Transforms an open-ended research question into structured subtasks.
+The system decomposes complex research questions into structured subtasks using a dedicated **Planner agent**.
 
-Responsibilities include:
+Each task is then processed through a multi-agent pipeline that allows independent reasoning and synthesis before final aggregation.
 
-- Task decomposition  
-- Tool planning  
-- Execution ordering  
-
-The planner generates execution plans that can run in **sequential or parallel modes** depending on token budget constraints.
+This design enables modular reasoning and improves robustness when handling open-ended research queries.
 
 ---
 
-## Summarizer Agent
+## Specialized Research Sub-Agents
 
-Aggregates tool outputs and intermediate findings into coherent evidence summaries.
+The system coordinates four specialized agents:
 
-Key functions include:
+* **Planner**
+  Decomposes the research question into structured subtasks and determines execution strategy.
 
-- Multi-source evidence synthesis  
-- Context compression  
-- Structured intermediate notes  
+* **Summarizer**
+  Collects evidence from tools and produces intermediate summaries.
 
-This allows downstream agents to operate on **high-density summarized context** rather than raw tool outputs.
+* **QA Auditor**
+  Performs verification and self-reflection to detect inconsistencies, missing evidence, or hallucinated claims.
 
----
+* **Reporter**
+  Compiles final outputs into structured research reports.
 
-## QA Auditor
-
-Introduces a self-reflection loop to improve answer reliability.
-
-Responsibilities include:
-
-- Detecting unsupported claims or hallucinations  
-- Identifying missing evidence  
-- Requesting refinement when necessary  
-
-The QA Auditor acts as an internal reviewer before final report generation.
+These agents communicate through a unified orchestration pipeline.
 
 ---
 
-## Reporter Agent
+## Tool-Oriented Multi-Agent Orchestration
 
-Compiles validated intermediate artifacts into a structured research report.
+A unified **tool-calling listener** coordinates tool usage across agents.
 
-Typical outputs include:
+This architecture allows:
 
-- Research overview  
-- Key findings  
-- Supporting evidence  
-- Synthesized conclusions  
+* extensible tool integration
+* modular agent design
+* transparent intermediate artifacts
 
-The final report maintains **traceability to intermediate reasoning steps and evidence sources**.
-
----
-
-# Multi-Agent Orchestration
-
-The system implements a **unified tool-calling listener** that allows agents to interact with external tools through a standardized interface.
-
-Key orchestration capabilities:
-
-- Modular agent architecture  
-- Extensible tool interface  
-- Sequential and parallel execution modes  
-- Event-driven monitoring of tool calls  
-
-This design enables scalable multi-agent coordination.
+The orchestration layer manages communication between agents and ensures that tool outputs are properly integrated into reasoning steps.
 
 ---
 
-# Key Features
+## Self-Reflection and Iterative Quality Improvement
 
-### Multi-Agent Research Pipeline
+The **QA Auditor** enables a self-reflection loop.
 
-Implements a coordinated research workflow using specialized agents for planning, summarization, verification, and reporting.
+The system performs:
 
-### Self-Reflection via QA Auditor
+1. Initial synthesis from retrieved evidence
+2. Verification of claims and evidence coverage
+3. Identification of missing or weak reasoning steps
+4. Iterative improvement of intermediate outputs
 
-Introduces an auditing loop that evaluates intermediate outputs and triggers iterative refinement.
-
-### Token-Efficient Context Management
-
-Refactors context packing and summarization prompts to significantly reduce token consumption while preserving information density.
-
----
-
-# Experimental Results
-
-The system was evaluated against a naive search-based baseline agent using the same LLM model.
-
-Evaluation setup:
-
-- Model: GPT-5.1  
-- Evaluation method: LLM-as-a-judge for report usability  
-
-Results:
-
-- ~30% higher average report usability compared with the baseline agent  
-- ~91% reduction in token budget through context refactoring and compression  
-
-These results indicate that **agent orchestration and context engineering significantly improve both research quality and efficiency**.
+This mechanism helps mitigate hallucinations and improves report reliability.
 
 ---
 
+## Adaptive Execution Modes
 
+The system supports two execution strategies:
 
+* **Sequential Mode**
+  Agents execute in a strict pipeline to maximize reasoning coherence.
 
+* **Parallel Mode**
+  Subtasks are processed concurrently to reduce latency and adapt to token budget constraints.
 
-## Project Structure
+This flexibility allows the system to balance **quality, speed, and token efficiency**.
+
+---
+
+# Quality Improvements
+
+Compared to a naive search-based agent baseline under **GPT-5.1**, the system achieved:
+
+* **~30% higher average report usability**, evaluated using **LLM-as-a-judge**
+* **~91% reduction in token budget** through context refactoring and compression
+
+These improvements demonstrate more efficient reasoning and better structured research outputs.
+
+---
+
+# Tech Stack
+
+* **Language:** Python
+* **Agent Framework:** HelloAgents
+* **LLM:** GPT-5.1 (via OpenAI API)
+* **Search Tools:** DuckDuckGo / external search APIs
+* **Frontend:** React + Node.js
+* **Backend:** Python API service
+
+---
+
+# High-Level Workflow
+
+1. User submits a research question
+2. Planner agent decomposes the question into subtasks
+3. Subtasks trigger tool calls and evidence retrieval
+4. Summarizer produces structured intermediate findings
+5. QA Auditor verifies reasoning and evidence coverage
+6. Reporter compiles the final structured report
+7. Iterative improvements are applied when necessary
+
+---
+
+# Repository Structure
+
+Example repository layout:
 
 ```text
-DeepResearchAgent
-├── backend
-│   ├── agents          # planner / summarizer / qa auditor / reporter
-│   ├── services        # orchestration & shared logic
-│   ├── tools           # tool integrations (search, retrieval, etc.)
-│   └── api             # backend API endpoints
-│
-└── frontend
-    ├── components      # UI components
-    └── pages           # routes / screens
+.
+├── backend/             # multi-agent backend logic
+├── frontend/            # web interface
+├── agents/              # Planner / Summarizer / QA Auditor / Reporter
+├── tools/               # search and tool integrations
+├── orchestration/       # multi-agent coordination logic
+└── config/              # environment and configuration
+```
+
+---
+
+# Environment Requirements
+
+* Python **>= 3.10**
+* Node.js **>= 18**
+* npm **>= 9**
+
 ---
 
 # Backend Setup
 
 ```bash
-cd backend
+cd chapter14/helloagents-deepresearch/backend
 
-# create virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 # Windows: .venv\Scripts\activate
 
-# install dependencies
 pip install --upgrade pip
 pip install -e .
+```
+
+---
+
+# Running the System
+
+Start the backend service:
+
+```bash
+cd chapter14/helloagents-deepresearch/backend
+source .venv/bin/activate
+python main.py
+```
+
+---
+
+# Running the Frontend
+
+In another terminal:
+
+```bash
+cd chapter14/helloagents-deepresearch/frontend
+npm install
+npm run dev
+```
+
+The frontend will connect to the backend API and provide an interface for submitting research questions and viewing generated reports.
+
+---
+
+# Future Work
+
+Potential improvements include:
+
+* improved hallucination detection in multi-agent reasoning
+* better trajectory-aware evaluation metrics
+* integration of additional research tools
+* more advanced agent coordination strategies
+
+---
+
+# License
+
+MIT License
