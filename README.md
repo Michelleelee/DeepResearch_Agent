@@ -157,24 +157,23 @@ These results indicate that **agent orchestration and context engineering signif
 
 ---
 
-# DeepResearchAgent
+
+
+
+
+## Project Structure
+
+```text
+DeepResearchAgent
 ├── backend
 │   ├── agents          # planner / summarizer / qa auditor / reporter
-│   ├── services        # orchestration logic
-│   ├── tools           # search & tool integrations
-│   └── api             # backend API
+│   ├── services        # orchestration & shared logic
+│   ├── tools           # tool integrations (search, retrieval, etc.)
+│   └── api             # backend API endpoints
 │
 └── frontend
-    ├── components
-    └── pages
----
-
-# Environment Requirements
-
-- Python >= 3.10  
-- Node.js >= 18  
-- npm >= 9  
-
+    ├── components      # UI components
+    └── pages           # routes / screens
 ---
 
 # Backend Setup
