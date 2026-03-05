@@ -157,21 +157,16 @@ These results indicate that **agent orchestration and context engineering signif
 
 ---
 
-# Project Structure
-
-
-DeepResearchAgent/
-├── backend/
-│ ├── agents/
-│ ├── services/
-│ ├── tools/
-│ └── api/
+# DeepResearchAgent
+├── backend
+│   ├── agents          # planner / summarizer / qa auditor / reporter
+│   ├── services        # orchestration logic
+│   ├── tools           # search & tool integrations
+│   └── api             # backend API
 │
-└── frontend/
-├── components/
-└── pages/
-
-
+└── frontend
+    ├── components
+    └── pages
 ---
 
 # Environment Requirements
